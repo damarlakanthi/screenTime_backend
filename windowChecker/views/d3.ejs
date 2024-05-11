@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detailed Report</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+
+     #chart-container-prod {
+      width: 80%; /* Set the desired width percentage */
+      max-width: 400px; /* Set maximum width for the chart */
+      margin: 0 auto; /* Center the chart horizontally */
+      border: 1px solid #ccc; /* Optional border for visualization */
+      margin-top: 10%;
+    }
+      .pie-chart-container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      svg {
+        width: 400px; /* Reduced SVG width */
+        height: 300px; /* Reduced SVG height */
+      }
+
+      .app-label {
+        font-size: 10px; /* Smaller font size for app names */
+        text-anchor: middle;
+      }
+      .usage-apps {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.usage-apps h1 {
+  margin-bottom: 20px; 
+}
+
+.usage-apps p {
+  margin-bottom: 10px; 
+  text-align: center; 
+}
+
+.logs-details {
+      width: 80%;
+      max-width: 600px;
+      margin: 20px auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: black;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    li:not(:last-child) {
+      border-bottom: 1px solid red;
+    }
+
+    /* Optional: Add styles for the log entries */
+    li {
+      font-size: 16px;
+      color: green;
+      /* Add more styles as needed */
+    }
+    </style>
+  </head>
+  <body>
+    <h1 class="usage-apps">Screen Time Report</h1><br/><br/>
+    <div class="pie-chart-container" id="chart-container"></div>
+    <div class="usage-apps">
+      <h1>This is the overall time used on the apps</h1>
+      <p>
+        Your 1st most used app is : <%=firstMostUsed.app.split(".")[2] %> Time:
+        <%=firstMostUsed.time.split(":")[0]
+        %>H:<%=firstMostUsed.time.split(":")[1] %>M
+        👑
+      </p>
+      <p>
+        Your 2nd most used app is : <%=secondMostUsed.app.split(".")[2] %>
+        <%=secondMostUsed.app.split(".")[2] %> Time:
+        <%=secondMostUsed.time.split(":")[0]
+        %>H:<%=secondMostUsed.time.split(":")[1] %>M
+        🔥
+      </p>
+      <p>
+        Your 3rd most used app is : <%=thirdMostUsed.app.split(".")[2] %>
+        <%=thirdMostUsed.app.split(".")[2] %> Time:
+        <%=thirdMostUsed.time.split(":")[0]
+        %>H:<%=thirdMostUsed.time.split(":")[1] %>M
+        🕑
+      </p>
+    </div>
+    
+    <div id="chart-container-prod">
+      <p><b>Productive VS Non Productive apps usage</b></p>
+      <canvas id="appUsageChart"></canvas>
+    </div>
+  
+    <div>
+      <h1>Overall usage and tips for you</h1>
+      
+    </div>
+
+    <div class="logs-details">
+    <h1 style=" margin-bottom: 10px; color: white;">Your Detailed Minute to Minute logs</h1>
+
+      <ul>
+        <% logLines.forEach((entry) => { %>
+          <li><%= entry%></li>
+        <% }); %>
+      </ul>
+    
+    </div>
+
+    
+
+  
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const response = await fetch("http://localhost:8080/data");
+        const data = await response.json();
+
+        
+
+        
+
+        const getTotalSeconds = (timeString) => {
+          const [hours, minutes, seconds] = timeString
+            .split(":")
+            .map(parseFloat);
+          return hours * 3600 + minutes * 60 + seconds;
+        };
+
+        const totalTimeCalc = (data) => {
+          const totalTimeInSeconds = data.reduce((total, item) => {
+            return total + getTotalSeconds(item.time);
+          }, 0);
+
+          const totalHours = Math.floor(totalTimeInSeconds / 3600);
+          const totalMinutes = Math.floor((totalTimeInSeconds % 3600) / 60);
+          const totalFormatted = `Total Time: ${totalHours}H ${totalMinutes}M`;
+          return totalFormatted;
+        };
+
+        const chartContainer = document.getElementById("chart-container");
+        const totalFormatted = totalTimeCalc(data);
+
+        const width = 400; // Reduced width for the pie chart
+        const height = 300; // Reduced height for the pie chart
+        const radius = Math.min(width, height) / 2;
+        const innerRadius = 75; // Adjusted inner radius for the smaller pie chart
+        const padding = 20; // Adjusted padding for the smaller pie chart
+
+        const svg = d3
+          .select(chartContainer)
+          .append("svg")
+          .attr("width", width)
+          .attr("height", height)
+          .append("g")
+          .attr("transform", `translate(${width / 2},${height / 2})`);
+
+        const pie = d3
+          .pie()
+          .value((d) => getTotalSeconds(d.time))
+          .sort(null);
+
+        pie.padAngle(0.052);
+
+        const arc = d3.arc().innerRadius(innerRadius).outerRadius(radius);
+
+        const color = d3
+          .scaleOrdinal()
+          .domain(data.map((d) => d.app))
+          .range(d3.schemeCategory10);
+
+        const arcs = pie(data);
+
+        svg
+          .selectAll("path")
+          .data(arcs)
+          .enter()
+          .append("path")
+          .attr("d", arc)
+          .attr("fill", (d) => color(d.data.app))
+          .attr("stroke", "white")
+          .style("stroke-width", "2px");
+
+        svg
+          .selectAll("text")
+          .data(arcs)
+          .enter()
+          .append("text")
+          .attr("class", "app-label")
+          .attr("transform", (d) => `translate(${arc.centroid(d)})`)
+          .attr("dy", "0.35em")
+          .text((d) => d.data.app);
+
+        svg
+          .append("text")
+          .attr("x", 0)
+          .attr("y", 0)
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "middle")
+          .text(totalFormatted);
+          
+
+          
+      });
+
+
+      document.addEventListener('DOMContentLoaded', async() => {
+
+        const resp = await fetch('http://localhost:8080/getproductivetime');
+        const productiveData = await resp.json()
+        const productiveTime = parseInt(productiveData?.productive);
+        const nonProductiveTime = parseInt(productiveData?.unproductive);
+      const ctx = document.getElementById('appUsageChart').getContext('2d');
+
+      
+
+      const chartData = {
+        labels: ['Productive Apps', 'Non-Productive Apps'],
+        datasets: [{
+          label: 'Time Spent (minutes)',
+          data: [productiveTime, nonProductiveTime],
+          backgroundColor: ['#36a2eb', '#ff6384'], // Colors for bars
+          borderColor: ['#36a2eb', '#ff6384'],
+          borderWidth: 1
+        }]
+      };
+
+      const chartOptions = {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      };
+
+      const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: chartOptions
+      });
+    });
+    </script>
+  </body>
+</html>

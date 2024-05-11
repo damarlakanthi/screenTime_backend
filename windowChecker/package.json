@@ -4,17 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-server": "nodemon logData.js",
+    "start-recodring": "nodemon index.js"
   },
-  "author": "",
+  "author": "Kanthi",
   "license": "ISC",
   "type": "module",
   "dependencies": {
     "active-win": "^9.0.0",
     "cors": "^2.8.5",
     "d3": "^7.9.0",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "fs": "^0.0.1-security",
-    "get-windows": "^9.1.1"
+    "get-windows": "^9.1.1",
+    "jsdom": "^24.0.0",
+    "puppeteer": "^22.8.0",
+    "ws": "^8.17.0",
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.10",
+    "nodemon": "^3.1.0",
+    "openai": "^4.42.0"
   }
 }

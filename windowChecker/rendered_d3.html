@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detailed Report</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+
+     #chart-container-prod {
+      width: 80%; /* Set the desired width percentage */
+      max-width: 400px; /* Set maximum width for the chart */
+      margin: 0 auto; /* Center the chart horizontally */
+      border: 1px solid #ccc; /* Optional border for visualization */
+      margin-top: 10%;
+    }
+      .pie-chart-container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      svg {
+        width: 400px; /* Reduced SVG width */
+        height: 300px; /* Reduced SVG height */
+      }
+
+      .app-label {
+        font-size: 10px; /* Smaller font size for app names */
+        text-anchor: middle;
+      }
+      .usage-apps {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.usage-apps h1 {
+  margin-bottom: 20px; 
+}
+
+.usage-apps p {
+  margin-bottom: 10px; 
+  text-align: center; 
+}
+
+.logs-details {
+      width: 80%;
+      max-width: 600px;
+      margin: 20px auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: black;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    li:not(:last-child) {
+      border-bottom: 1px solid red;
+    }
+
+    /* Optional: Add styles for the log entries */
+    li {
+      font-size: 16px;
+      color: green;
+      /* Add more styles as needed */
+    }
+    </style>
+  </head>
+  <body>
+    <h1 class="usage-apps">Screen Time Report</h1><br/><br/>
+    <div class="pie-chart-container" id="chart-container"></div>
+    <div class="usage-apps">
+      <h1>This is the overall time used on the apps</h1>
+      <p>
+        Your 1st most used app is : loginwindow Time:
+        05H:34M
+        👑
+      </p>
+      <p>
+        Your 2nd most used app is : Chrome
+        Chrome Time:
+        04H:19M
+        🔥
+      </p>
+      <p>
+        Your 3rd most used app is : VSCode
+        VSCode Time:
+        03H:46M
+        🕑
+      </p>
+    </div>
+    
+    <div id="chart-container-prod">
+      <p><b>Productive VS Non Productive apps usage</b></p>
+      <canvas id="appUsageChart"></canvas>
+    </div>
+  
+    <div>
+      <h1>Overall usage and tips for you</h1>
+      
+    </div>
+
+    <div class="logs-details">
+    <h1 style=" margin-bottom: 10px; color: white;">Your Detailed Minute to Minute logs</h1>
+
+      <ul>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:14:0.18600000000003547</li>
+        
+          <li>Time spent on com.google.Chrome: 00:06:49.76799999999997</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:03:0.1560000000000059</li>
+        
+          <li>Time spent on com.google.Chrome: 00:07:49.43000000000001</li>
+        
+          <li>Time spent on com.apple.loginwindow: 00:01:0.23799999999999955</li>
+        
+          <li>Time spent on com.google.Chrome: 00:13:5.95799999999997</li>
+        
+          <li>Time spent on com.apple.loginwindow: 00:01:0.09700000000000131</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.833</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:03:0.018000000000000682</li>
+        
+          <li>Time spent on com.apple.FaceTime: 00:13:0.020999999999958163</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:04:0.020999999999986585</li>
+        
+          <li>Time spent on net.whatsapp.WhatsApp: 00:03:0.0049999999999954525</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:28:18.730000000000018</li>
+        
+          <li>Time spent on com.google.Chrome: 00:15:47.59000000000003</li>
+        
+          <li>Time spent on com.apple.loginwindow: 00:30:52.496000000000095</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.44</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.02400000000000091</li>
+        
+          <li>Time spent on com.apple.FaceTime: 00:11:59.932000000000016</li>
+        
+          <li>Time spent on com.apple.loginwindow: 00:02:28.132000000000005</li>
+        
+          <li>Time spent on com.apple.FaceTime: 00:19:0.18100000000004002</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.804</li>
+        
+          <li>Time spent on com.apple.FaceTime: 00:17:0.04499999999995907</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.24199999999999733</li>
+        
+          <li>Time spent on com.google.Chrome: 00:04:59.73200000000003</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:02:0.18200000000000216</li>
+        
+          <li>Time spent on com.google.Chrome: 00:03:59.89699999999999</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.15899999999999892</li>
+        
+          <li>Time spent on com.google.Chrome: 00:02:59.845</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:02:0.01999999999999602</li>
+        
+          <li>Time spent on com.apple.systempreferences: 00:00:59.978</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:04:0.2189999999999941</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.80500000000001</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.18200000000000216</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.821</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:04:0.11199999999999477</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.846</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:03:0.15399999999999636</li>
+        
+          <li>Time spent on com.google.Chrome: 00:06:59.865999999999985</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.1490000000000009</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.826</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:03:0.17300000000000182</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.863</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:02:0.14499999999999602</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.813</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:20:34.065000000000055</li>
+        
+          <li>Time spent on com.apple.loginwindow: 00:00:59.865</li>
+        
+          <li>Time spent on com.google.Chrome: 00:15:53.15300000000002</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.15500000000000114</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.86</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.17999999999999972</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.837</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.15800000000000125</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.841</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.12100000000000222</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.872</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.17300000000000182</li>
+        
+          <li>Time spent on com.google.Chrome: 00:02:59.81800000000001</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:04:0.17799999999999727</li>
+        
+          <li>Time spent on com.google.Chrome: 00:04:59.821000000000026</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.2079999999999984</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.784000000000006</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:02:0.20699999999999363</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.864</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.142000000000003</li>
+        
+          <li>Time spent on com.google.Chrome: 00:03:59.855999999999995</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.16400000000000148</li>
+        
+          <li>Time spent on com.google.Chrome: 00:05:59.82499999999999</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.16799999999999926</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.83</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.20400000000000063</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.792</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:02:0.13299999999999557</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.867</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:02:0.19199999999999307</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.834</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:02:0.17100000000000648</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.843</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.1739999999999995</li>
+        
+          <li>Time spent on com.google.Chrome: 00:06:59.83499999999998</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.20400000000000063</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.807</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:03:0.17900000000000205</li>
+        
+          <li>Time spent on com.google.Chrome: 00:07:59.860000000000014</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:05:0.15300000000002</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.837</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:04:0.10499999999998977</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.919</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:04:0.13599999999999568</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.853</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.14999999999999858</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.841</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.1769999999999996</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.849</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.1839999999999975</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.884</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.11299999999999955</li>
+        
+          <li>Time spent on com.google.Chrome: 00:04:59.853999999999985</li>
+        
+          <li>Time spent on com.microsoft.Word: 00:02:0.29000000000000625</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.708</li>
+        
+          <li>Time spent on com.microsoft.Word: 00:00:59.965</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:03:0.23500000000001364</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.834</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:02:0.11499999999999488</li>
+        
+          <li>Time spent on com.google.Chrome: 00:02:59.893</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:02:0.028999999999996362</li>
+        
+          <li>Time spent on net.whatsapp.WhatsApp: 00:02:0.0049999999999954525</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:03:0.17300000000000182</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.812</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:08:0.02600000000001046</li>
+        
+          <li>Time spent on com.apple.loginwindow: 00:11:16.653999999999996</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:03:0.19900000000001228</li>
+        
+          <li>Time spent on com.google.Chrome: 00:06:59.860000000000014</li>
+        
+          <li>Time spent on com.apple.loginwindow: 04:46:45.96900000000096</li>
+        
+          <li>Time spent on com.google.Chrome: 00:04:59.73399999999998</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:02:0.44899999999999807</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.51</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:03:0.18199999999998795</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.862</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:03:0.14300000000000068</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.816</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.1880000000000024</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.791</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:03:0.19300000000001205</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.834999999999994</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:04:0.1740000000000066</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.840999999999994</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.11399999999999721</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.848</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.1629999999999967</li>
+        
+          <li>Time spent on com.google.Chrome: 00:02:59.80099999999999</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.18999999999999773</li>
+        
+          <li>Time spent on com.google.Chrome: 00:06:59.84899999999999</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:03:0.18199999999998795</li>
+        
+          <li>Time spent on com.google.Chrome: 00:06:59.807000000000016</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.1460000000000008</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.866</li>
+        
+          <li>Time spent on com.apple.Preview: 00:01:0.16899999999999693</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.803</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.15500000000000114</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.854</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.1629999999999967</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.834</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.14699999999999847</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.812</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:00:59.989</li>
+        
+          <li>Time spent on com.apple.Preview: 00:01:0.1839999999999975</li>
+        
+          <li>Time spent on com.google.Chrome: 00:03:59.81999999999999</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:05:0.19700000000000273</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.833</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.15500000000000114</li>
+        
+          <li>Time spent on com.google.Chrome: 00:02:0.2920000000000016</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.1559999999999988</li>
+        
+          <li>Time spent on com.google.Chrome: 00:02:59.821</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.03999999999999915</li>
+        
+          <li>Time spent on com.apple.finder: 00:01:0.15800000000000125</li>
+        
+          <li>Time spent on com.google.Chrome: 00:01:59.824</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.20400000000000063</li>
+        
+          <li>Time spent on com.google.Chrome: 00:03:59.75800000000001</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:02:0.13500000000000512</li>
+        
+          <li>Time spent on com.google.Chrome: 00:03:59.87100000000001</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:00:59.976</li>
+        
+          <li>Time spent on com.apple.Preview: 00:01:59.977999999999994</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.22099999999999653</li>
+        
+          <li>Time spent on com.google.Chrome: 00:03:59.831999999999994</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:06:0.10300000000000864</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.881</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.14300000000000068</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.863</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.14300000000000068</li>
+        
+          <li>Time spent on com.google.Chrome: 00:09:59.889999999999986</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.20400000000000063</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.843</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.2010000000000005</li>
+        
+          <li>Time spent on com.google.Chrome: 00:02:59.774</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.1490000000000009</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.881</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:03:0.18600000000000705</li>
+        
+          <li>Time spent on com.google.Chrome: 00:02:59.81700000000001</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:03:0.21600000000000819</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.793</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:01:0.021999999999998465</li>
+        
+          <li>Time spent on com.apple.Preview: 00:03:0.1349999999999909</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.88</li>
+        
+          <li>Time spent on com.apple.Preview: 00:01:0.1559999999999988</li>
+        
+          <li>Time spent on com.google.Chrome: 00:03:59.774</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:02:0.132000000000005</li>
+        
+          <li>Time spent on com.google.Chrome: 00:00:59.889</li>
+        
+          <li>Time spent on com.microsoft.VSCode: 00:03:0.18899999999999295</li>
+        
+          <li>Time spent on com.google.Chrome: 00:02:59.91499999999999</li>
+        
+      </ul>
+    
+    </div>
+
+    
+
+  
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const response = await fetch("http://localhost:8080/data");
+        const data = await response.json();
+
+        
+
+        
+
+        const getTotalSeconds = (timeString) => {
+          const [hours, minutes, seconds] = timeString
+            .split(":")
+            .map(parseFloat);
+          return hours * 3600 + minutes * 60 + seconds;
+        };
+
+        const totalTimeCalc = (data) => {
+          const totalTimeInSeconds = data.reduce((total, item) => {
+            return total + getTotalSeconds(item.time);
+          }, 0);
+
+          const totalHours = Math.floor(totalTimeInSeconds / 3600);
+          const totalMinutes = Math.floor((totalTimeInSeconds % 3600) / 60);
+          const totalFormatted = `Total Time: ${totalHours}H ${totalMinutes}M`;
+          return totalFormatted;
+        };
+
+        const chartContainer = document.getElementById("chart-container");
+        const totalFormatted = totalTimeCalc(data);
+
+        const width = 400; // Reduced width for the pie chart
+        const height = 300; // Reduced height for the pie chart
+        const radius = Math.min(width, height) / 2;
+        const innerRadius = 75; // Adjusted inner radius for the smaller pie chart
+        const padding = 20; // Adjusted padding for the smaller pie chart
+
+        const svg = d3
+          .select(chartContainer)
+          .append("svg")
+          .attr("width", width)
+          .attr("height", height)
+          .append("g")
+          .attr("transform", `translate(${width / 2},${height / 2})`);
+
+        const pie = d3
+          .pie()
+          .value((d) => getTotalSeconds(d.time))
+          .sort(null);
+
+        pie.padAngle(0.052);
+
+        const arc = d3.arc().innerRadius(innerRadius).outerRadius(radius);
+
+        const color = d3
+          .scaleOrdinal()
+          .domain(data.map((d) => d.app))
+          .range(d3.schemeCategory10);
+
+        const arcs = pie(data);
+
+        svg
+          .selectAll("path")
+          .data(arcs)
+          .enter()
+          .append("path")
+          .attr("d", arc)
+          .attr("fill", (d) => color(d.data.app))
+          .attr("stroke", "white")
+          .style("stroke-width", "2px");
+
+        svg
+          .selectAll("text")
+          .data(arcs)
+          .enter()
+          .append("text")
+          .attr("class", "app-label")
+          .attr("transform", (d) => `translate(${arc.centroid(d)})`)
+          .attr("dy", "0.35em")
+          .text((d) => d.data.app);
+
+        svg
+          .append("text")
+          .attr("x", 0)
+          .attr("y", 0)
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "middle")
+          .text(totalFormatted);
+          
+
+          
+      });
+
+
+      document.addEventListener('DOMContentLoaded', async() => {
+
+        const resp = await fetch('http://localhost:8080/getproductivetime');
+        const productiveData = await resp.json()
+        const productiveTime = parseInt(productiveData?.productive);
+        const nonProductiveTime = parseInt(productiveData?.unproductive);
+      const ctx = document.getElementById('appUsageChart').getContext('2d');
+
+      
+
+      const chartData = {
+        labels: ['Productive Apps', 'Non-Productive Apps'],
+        datasets: [{
+          label: 'Time Spent (minutes)',
+          data: [productiveTime, nonProductiveTime],
+          backgroundColor: ['#36a2eb', '#ff6384'], // Colors for bars
+          borderColor: ['#36a2eb', '#ff6384'],
+          borderWidth: 1
+        }]
+      };
+
+      const chartOptions = {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      };
+
+      const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: chartOptions
+      });
+    });
+    </script>
+  </body>
+</html>
