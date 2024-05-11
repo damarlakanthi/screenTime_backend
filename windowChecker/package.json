@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-server": "nodemon logData.js",
-    "start-recodring": "nodemon index.js"
+    "start-recording": "nodemon index.js"
   },
   "author": "Kanthi",
   "license": "ISC",
